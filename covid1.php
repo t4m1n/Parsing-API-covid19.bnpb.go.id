@@ -6,8 +6,12 @@ function covid()
 {
     $array = json_decode(file_get_contents("https://services5.arcgis.com/VS6HdKS0VfIhv8Ct/arcgis/rest/services/Statistik_Perkembangan_COVID19_Indonesia/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"), true);
 
-    $tgl = date('Y-m-d', strtotime('-1 days', strtotime(date("Y-m-d"))));
-    $tgl = date('Y-m-d', strtotime(date("Y-m-d")));
+    if (date('H:i:s') >= "17:00:00") {
+        $tgl = date('Y-m-d', strtotime(date("Y-m-d")));
+    } else {
+        $tgl = date('Y-m-d', strtotime('-1 days', strtotime(date("Y-m-d"))));
+    }
+    
     $time = "07:00:00 AM";
     $datetime = $tgl . " " . $time;
     $datetime1 = strtotime($datetime) * 1000;
